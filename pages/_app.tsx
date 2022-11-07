@@ -1,6 +1,13 @@
-import '../styles/globals.css'
 import type { AppProps } from 'next/app'
+import MainLayoutContainer from '../containers/layouts/MainLayout'
+import AppQueryProvider from '../query/AppQueryProvider'
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <AppQueryProvider>
+      <MainLayoutContainer>
+        <Component {...pageProps} />
+      </MainLayoutContainer>
+    </AppQueryProvider>
+  )
 }
