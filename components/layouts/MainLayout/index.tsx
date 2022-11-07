@@ -46,9 +46,7 @@ const MainLayout: FC<Props> = ({ children, drawerProps, drawerAction }) => {
               Application
             </Typography>
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-              <Button variant="text" sx={{ color: 'white' }}>メニュー1</Button>
-              <Button variant="text" sx={{ color: 'white' }}>メニュー2</Button>
-              <Button variant="text" sx={{ color: 'white' }}>メニュー3</Button>
+              <Typography>ここにいろいろな情報を載せます</Typography>
             </Box>
           </Toolbar>
         </AppBar>
