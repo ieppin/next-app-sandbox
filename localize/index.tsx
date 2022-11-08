@@ -1,5 +1,6 @@
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import "dayjs/locale/ja";
 import { FC, ReactNode } from "react";
 
 type Props = {
@@ -12,7 +13,7 @@ type Props = {
  */
 const AppLocalizationProvider: FC<Props> = ({ children }) => {
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ja">
       {children}
     </LocalizationProvider>
   )

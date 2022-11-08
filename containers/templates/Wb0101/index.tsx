@@ -1,5 +1,9 @@
+import { Dayjs } from "dayjs";
 import { FC } from "react";
+import toast from "react-hot-toast";
+import { object, string } from "yup";
 import Wb0101 from "../../../components/templates/Wb0101";
+import useFormikEx, { SubmitHandler } from "../../hooks/useFormik";
 
 type Props = {
 }
@@ -8,6 +12,36 @@ type Props = {
  * @returns WB0101のコンテナー
  */
 const Wb0101Container: FC<Props> = () => {
-  return <Wb0101 />
+  const { control, handleSubmit } = useFormikEx<Wb0101Form>({
+    // 初期値
+    initialValues: { value1: '', value2: '', value3: null },
+    // バリデーションスキーマ
+    validationSchema: object({
+      value1: string().required(),
+      value2: string().required(),
+      value3: object().nullable().required(),
+    }),
+    validateOnBlur: true,
+  })
+
+  const wb0101000: SubmitHandler<Wb0101Form> = (values) => {
+    console.log('submitted form values', values)
+    toast.success('フォームが送信されました。')
+  }
+
+  return (
+    <Wb0101
+      value1={control('value1').text()}
+      value2={control('value2').text()}
+      value3={control('value3').date()}
+      wb0101000={handleSubmit(wb0101000)}
+    />
+  )
+}
+
+type Wb0101Form = {
+  value1: string
+  value2: string
+  value3: Dayjs | null
 }
 export default Wb0101Container

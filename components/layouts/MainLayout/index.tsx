@@ -4,7 +4,7 @@ import MenuIcon from "@mui/icons-material/Menu"
 import { AppBar, Box, Button, CssBaseline, Drawer, DrawerProps, IconButton, List, ListItem, Paper, Toolbar, Typography } from "@mui/material"
 import { FC, MouseEventHandler, ReactNode } from "react"
 import { Toaster } from "react-hot-toast"
-import { useTheme as useAppTheme } from "../../theme"
+import { useAooTheme as useAppTheme } from "../../theme"
 
 type Props = {
   drawerAction?: MouseEventHandler

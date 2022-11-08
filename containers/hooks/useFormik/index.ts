@@ -4,8 +4,6 @@ import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import { ControlledCheck, ControlledDate, ControlledText } from "../../../components/types/control"
 
-/** useFormikExでhandleSubmitに渡す関数の型です。 */
-export type SubmitHandler<T> = (values: T) => void
 /**
  * useFormikの拡張関数です。下記の機能が追加されています。
  * ・MUIを制御コンポーネントにするcontrol関数の追加
@@ -13,7 +11,7 @@ export type SubmitHandler<T> = (values: T) => void
  * @param config {@link useFormik}のコンフィギュレーション、onSubmitのみ内部制御用につぶしている
  * @returns Formを処理するための値、ハンドラー
  */
-export const useFormikEx = <T extends FieldValues = FieldValues>(config: Omit<FormikConfig<T>, 'onSubmit' | 'validateOnBlur' | 'validateOnChange'>) => {
+export const useFormikEx = <T extends FieldValues = FieldValues>(config: Omit<FormikConfig<T>, 'onSubmit'>) => {
   // クリックイベントの受け渡し用
   const [eventFn, setEventFn] = useState<{ fn: SubmitHandler<T> }>()
 
@@ -42,8 +40,6 @@ export const useFormikEx = <T extends FieldValues = FieldValues>(config: Omit<Fo
         setEventFn(undefined)
       }
     },
-    validateOnBlur: false,
-    validateOnChange: false,
   })
 
   // バリデーションエラーがある場合はメッセージをポップ
@@ -118,6 +114,9 @@ export const useFormikEx = <T extends FieldValues = FieldValues>(config: Omit<Fo
     resetForm: resetForm,
   }
 }
+
+/** useFormikExでhandleSubmitに渡す関数の型です。 */
+export type SubmitHandler<T> = (values: T) => void
 
 export declare type Control<TObject extends FieldValues> = <TPath extends FieldPath<TObject> = FieldPath<TObject>>(name: TPath) => {
   text: () => ControlledText
