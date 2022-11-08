@@ -56,22 +56,22 @@ export const useFormikEx = <T extends FieldValues = FieldValues>(config: Omit<Fo
     const error = Boolean(get(errors, name))
     const message = get(errors, name)
     return {
-      text: () => ({
+      text: {
         name, value, onBlur,
         onChange: handleChange,
         error, message,
-      }),
-      check: () => ({
+      },
+      check: {
         name,
         checked: !!value,
         onBlur,
         onChange: handleChange,
-      }),
-      date: () => ({
+      },
+      date: {
         name, value, onBlur,
         onChange: (data) => setFieldValue(name, data),
         error, message,
-      })
+      }
     }
   }
 
@@ -118,9 +118,9 @@ export const useFormikEx = <T extends FieldValues = FieldValues>(config: Omit<Fo
 export type SubmitHandler<T> = (values: T) => void
 
 export declare type Control<TObject extends FieldValues> = <TPath extends FieldPath<TObject> = FieldPath<TObject>>(name: TPath) => {
-  text: () => ControlledText
-  check: () => ControlledCheck
-  date: () => ControlledDate
+  text: ControlledText
+  check: ControlledCheck
+  date: ControlledDate
 }
 
 // 以下のtypeはReact Hook Formから移植したもの

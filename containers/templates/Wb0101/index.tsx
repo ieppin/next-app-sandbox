@@ -31,10 +31,10 @@ const Wb0101Container: FC<Props> = () => {
 
   return (
     <Wb0101
-      value1={control('value1').text()}
-      value2={control('value2').text()}
-      value3={control('value3').date()}
-      value4={control('value4').check()}
+      value1={control('value1').text}
+      value2={control('value2').text}
+      value3={control('value3').date}
+      value4={control('value4').check}
       wb0101000={handleSubmit(wb0101000)}
     />
   )
