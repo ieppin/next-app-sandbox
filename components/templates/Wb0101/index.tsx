@@ -1,13 +1,14 @@
-import { Box, Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { Box, Button, Checkbox, FormControl, FormControlLabel, FormHelperText, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { DatePicker } from "@mui/x-date-pickers";
 import { FC, MouseEventHandler } from "react";
-import { ControlledDate, ControlledText } from "../../types/control";
+import { ControlledCheck, ControlledDate, ControlledText } from "../../types/control";
 
 type Props = {
   value1: ControlledText
   value2: ControlledText
   value3: ControlledDate
+  value4: ControlledCheck
   wb0101000: MouseEventHandler
 }
 /**
@@ -58,6 +59,14 @@ const Wb0101: FC<Props> = (props) => {
                   error={props.value3.error}
                   helperText={props.value3.message} />}
             />
+          </FormControl>
+          {/* 値4 */}
+          <FormControl>
+            <FormControlLabel
+              control={<Checkbox {...props.value4} />}
+              label="チェックを入れる"
+            />
+            <FormHelperText error={props.value4.error}>{props.value4.message}</FormHelperText>
           </FormControl>
           <Box textAlign="right">
             <Button
