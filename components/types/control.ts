@@ -25,7 +25,7 @@ export type ControlledText = {
 export type ControlledCheck = {
   /** チェックボックスやSwitchの状態です。 */
   checked: boolean
-} & ControlledBase
+} & Omit<ControlledBase, 'error' | 'message'>
 
 export type ControlledDate = {
   /** DatePickerに表示する値です。 */

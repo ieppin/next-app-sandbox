@@ -66,7 +66,6 @@ const Wb0101: FC<Props> = (props) => {
               control={<Checkbox {...props.value4} />}
               label="チェックを入れる"
             />
-            <FormHelperText error={props.value4.error}>{props.value4.message}</FormHelperText>
           </FormControl>
           <Box textAlign="right">
             <Button

@@ -66,7 +66,6 @@ export const useFormikEx = <T extends FieldValues = FieldValues>(config: Omit<Fo
         checked: !!value,
         onBlur,
         onChange: handleChange,
-        error, message,
       }),
       date: () => ({
         name, value, onBlur,

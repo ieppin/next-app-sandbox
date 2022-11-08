@@ -1,7 +1,7 @@
 import { Dayjs } from "dayjs";
 import { FC } from "react";
 import toast from "react-hot-toast";
-import { boolean, object, string } from "yup";
+import { object, string } from "yup";
 import Wb0101 from "../../../components/templates/Wb0101";
 import useFormikEx, { SubmitHandler } from "../../hooks/useFormik";
 
@@ -20,7 +20,6 @@ const Wb0101Container: FC<Props> = () => {
       value1: string().required(),
       value2: string().required(),
       value3: object().nullable().required(),
-      value4: boolean().isTrue(),
     }),
     validateOnBlur: true,
   })
