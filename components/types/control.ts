@@ -1,3 +1,4 @@
+/** コンポーネント制御用プロパティ群のベースタイプです。 */
 type ControlledBase = {
   /** Formikと連携するための名前です。 */
   name: string
@@ -17,16 +18,19 @@ type ControlledBase = {
   message?: any
 }
 
+/** テキストを扱う部品(TextField, Selectなど)を制御下に置くためのプロパティ群です。 */
 export type ControlledText = {
   /** テキストコンポーネントに表示する値です。 */
   value: unknown
 } & ControlledBase
 
+/** 真偽値を扱う部品(Checkbox, Switchなど)を制御下に置くためのプロパティ群です。 */
 export type ControlledCheck = {
   /** チェックボックスやSwitchの状態です。 */
   checked: boolean
 } & Omit<ControlledBase, 'error' | 'message'>
 
+/** 日付を扱う部品(DatePickerなど)を制御下に置くためのプロパティ群です。 */
 export type ControlledDate = {
   /** DatePickerに表示する値です。 */
   value: unknown
