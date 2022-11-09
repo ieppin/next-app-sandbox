@@ -5,13 +5,13 @@ import toast from "react-hot-toast"
 import { ControlledCheck, ControlledDate, ControlledText } from "../../../components/types/control"
 
 /**
- * useFormikの拡張関数です。下記の機能が追加されています。
+ * useFormikをMUIと組み合わせて使えるようにしたカスタムフックです。下記の機能が追加されています。
  * ・MUIを制御コンポーネントにするcontrol関数の追加
  * ・onClickイベントをラップしてsubmit発火させるhandleSubmit関数の追加
  * @param config {@link useFormik}のコンフィギュレーション、onSubmitのみ内部制御用につぶしている
  * @returns Formを処理するための値、ハンドラー
  */
-export const useFormikEx = <T extends FieldValues = FieldValues>(config: Omit<FormikConfig<T>, 'onSubmit'>) => {
+export const useFormikMui = <T extends FieldValues = FieldValues>(config: Omit<FormikConfig<T>, 'onSubmit'>) => {
   // クリックイベントの受け渡し用
   const [eventFn, setEventFn] = useState<{ fn: SubmitHandler<T> }>()
 
@@ -137,4 +137,4 @@ export declare type Path<T> = T extends ReadonlyArray<infer V> ? IsTuple<T> exte
 }[keyof T];
 export declare type FieldPath<TFieldValues extends FieldValues> = Path<TFieldValues>;
 
-export default useFormikEx
+export default useFormikMui

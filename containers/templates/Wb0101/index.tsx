@@ -3,7 +3,7 @@ import { FC } from "react";
 import toast from "react-hot-toast";
 import { object, string } from "yup";
 import Wb0101 from "../../../components/templates/Wb0101";
-import useFormikEx, { SubmitHandler } from "../../hooks/useFormik";
+import useFormikMui, { SubmitHandler } from "../../hooks/useFormikMui";
 
 type Props = {
 }
@@ -12,7 +12,7 @@ type Props = {
  * @returns WB0101のコンテナー
  */
 const Wb0101Container: FC<Props> = () => {
-  const { control, handleSubmit } = useFormikEx<Wb0101Form>({
+  const { control, handleSubmit } = useFormikMui<Wb0101Form>({
     // 初期値
     initialValues: { value1: '', value2: '', value3: null, value4: false, },
     // バリデーションスキーマ
