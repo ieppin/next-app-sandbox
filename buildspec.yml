@@ -21,3 +21,6 @@ phases:
 cache:
   paths:
     - .next/cache/**/*
+artifacts:
+  files:
+    - packaged-template.yml
