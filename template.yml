@@ -35,8 +35,3 @@ Resources:
           Properties:
             Path: /{proxy+}
             Method: ANY
-
-Outputs:
-  NextjsFunctionURL:
-    Description: "API Gateway endpoint URL for Next.js"
-    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/"
