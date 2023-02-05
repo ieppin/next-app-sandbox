@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+    commands:
+      - echo ${BUILD_ENV}
+      - npm ci
+  build:
+    commands:
+      - npm run build
+      - sam deploy --no-fail-on-empty-changeset
+      # Static resources ideally served from CloudFront
+      - cp -r public/. .next/standalone/public
+      - cp -r .next/static/. .next/standalone/.next/static
+      # Copy artifacts for deployment
+      - mkdir dist
+      - cp -r .next/standalone/. dist
+      - cp run.sh dist
+cache:
+  paths:
+    - .next/cache/**/*
