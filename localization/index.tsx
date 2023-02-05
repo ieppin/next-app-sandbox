@@ -11,11 +11,11 @@ type Props = {
  * @param props プロパティ
  * @returns MUI-XのDatePickerに関するローカライズを行う関数コンポーネント
  */
-const AppLocalizationProvider: FC<Props> = ({ children }) => {
+const AppL10nProvider: FC<Props> = ({ children }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ja">
       {children}
     </LocalizationProvider>
   )
 }
-export default AppLocalizationProvider
+export default AppL10nProvider

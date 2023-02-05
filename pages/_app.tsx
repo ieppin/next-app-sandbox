@@ -1,16 +1,16 @@
 import type { AppProps } from 'next/app'
 import MainLayoutContainer from '../containers/layouts/MainLayout'
-import AppLocalizationProvider from '../localize'
+import AppL10nProvider from '../localization'
 import AppQueryProvider from '../query/AppQueryProvider'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <AppQueryProvider>
-      <AppLocalizationProvider>
+      <AppL10nProvider>
         <MainLayoutContainer>
           <Component {...pageProps} />
         </MainLayoutContainer>
-      </AppLocalizationProvider>
+      </AppL10nProvider>
     </AppQueryProvider>
   )
 }
