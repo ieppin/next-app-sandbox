@@ -17,7 +17,7 @@ phases:
       - mkdir dist
       - cp -r .next/standalone/. dist
       - cp run.sh dist
-      - sam package --template-file template.yaml --s3-bucket ${SAM_BUCKET} --output-template-file packaged-template.yml
+      - sam package --template-file template.yml --s3-bucket ${SAM_BUCKET} --output-template-file packaged-template.yml
 cache:
   paths:
     - .next/cache/**/*
