@@ -1,0 +1,14 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+  build:
+    commands:
+      - sam deploy --stack-name nextjs-serverless
+        --template packaged-template.yml
+        --capabilities CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND
+        --region ${AWS_REGION}
+        --s3-bucket ${SAM_BUCKET}
+        --no-fail-on-empty-changeset
