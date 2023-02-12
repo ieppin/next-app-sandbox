@@ -6,6 +6,8 @@ Description: >
 Globals:
   Function:
     Timeout: 10
+  Api:
+    OpenApiVersion: 3.0.2
 
 Resources:
   NextjsFunction:
