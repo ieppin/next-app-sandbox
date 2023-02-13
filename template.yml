@@ -14,7 +14,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: dist/
-      MemorySize: 512
+      MemorySize: 2048
       Handler: run.sh
       Runtime: nodejs18.x
       Architectures:
