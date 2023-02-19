@@ -37,3 +37,5 @@ next-env.d.ts
 
 # AWS SAM
 .aws-sam
+# @sladg/nextjs-lambda
+next.out
