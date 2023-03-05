@@ -20,6 +20,17 @@ Resources:
         ServerSideEncryptionConfiguration:
           - ServerSideEncryptionByDefault:
               SSEAlgorithm: aws:kms
+  AssetsBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref AssetsBucket
+      PolicyDocument:
+        Statement:
+          - Action: s3:GetObject
+            Effect: Allow
+            Resource: !Sub arn:aws:s3:::${AssetsBucket}/*
+            Principal:
+              AWS: !Sub arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${CloudFrontOriginAccessIdentity}
   NextjsServerFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -79,7 +90,7 @@ Resources:
           - DomainName: nextjs-serverless-assets.s3.amazonaws.com
             Id: myS3Origin
             S3OriginConfig:
-              OriginAccessIdentity: origin-access-identity/cloudfront/E127EXAMPLE51Z
+              OriginAccessIdentity: !Sub origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}
         Enabled: true
         DefaultRootObject: index.html
         DefaultCacheBehavior:
@@ -96,3 +107,8 @@ Resources:
         PriceClass: PriceClass_All
         ViewerCertificate:
           CloudFrontDefaultCertificate: true
+  CloudFrontOriginAccessIdentity:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: !Ref AWS::StackName
