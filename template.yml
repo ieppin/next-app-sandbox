@@ -25,6 +25,7 @@ Resources:
     Properties:
       CodeUri: next.out/code.zip
       MemorySize: 512
+      AutoPublishAlias: live
       Handler: server.handler
       Runtime: nodejs18.x
       Architectures:
@@ -49,6 +50,7 @@ Resources:
     Properties:
       CodeUri: node_modules/@sladg/imaginex-lambda/build/code.zip
       MemorySize: 512
+      AutoPublishAlias: live
       Handler: imaginex_lambda/handler.handler
       Runtime: python3.8
       Layers:
