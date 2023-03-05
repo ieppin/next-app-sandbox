@@ -33,7 +33,7 @@ Resources:
         - !Ref NextjsServerLayer
       Events:
         Proxy:
-          Type: Http
+          Type: Api
           Properties:
             Path: /_server/{proxy+}
             Method: ANY
@@ -55,7 +55,7 @@ Resources:
         - !Ref NextjsImageLayer
       Events:
         Proxy:
-          Type: Http
+          Type: Api
           Properties:
             Path: /_image/{proxy+}
             Method: ANY
