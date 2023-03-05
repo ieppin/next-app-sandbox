@@ -10,30 +10,87 @@ Globals:
     OpenApiVersion: 3.0.2
 
 Resources:
-  NextjsFunction:
+  AssetsBucket:
+    Type: AWS::S3::Bucket
+    UpdateReplacePolicy: Retain
+    Properties:
+      BucketName: nextjs-serverless-assets
+      AccessControl: Private
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: aws:kms
+  NextjsServerFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: dist/
+      CodeUri: next.out/code.zip
       MemorySize: 512
-      Handler: run.sh
+      Handler: server.handler
       Runtime: nodejs18.x
       Architectures:
         - x86_64
-      Environment:
-        Variables:
-          AWS_LAMBDA_EXEC_WRAPPER: /opt/bootstrap
-          RUST_LOG: info
-          PORT: "8000"
       Layers:
-        - !Sub arn:aws:lambda:${AWS::Region}:753240598075:layer:LambdaAdapterLayerX86:11
+        - !Ref NextjsServerLayer
       Events:
-        Root:
-          Type: Api
-          Properties:
-            Path: /
-            Method: ANY
         Proxy:
-          Type: Api
+          Type: Http
           Properties:
-            Path: /{proxy+}
+            Path: /_server/{proxy+}
             Method: ANY
+      DeploymentPreference:
+        Type: AllAtOnce
+  NextjsServerLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      Description: Next.js Server Dependencies
+      ContentUri: next.out/dependenciesLayer.zip
+  NextjsImageFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: node_modules/@sladg/imaginex-lambda/build/code.zip
+      MemorySize: 512
+      Handler: imaginex_lambda/handler.handler
+      Runtime: python3.8
+      Layers:
+        - !Ref NextjsImageLayer
+      Events:
+        Proxy:
+          Type: Http
+          Properties:
+            Path: /_image/{proxy+}
+            Method: ANY
+      DeploymentPreference:
+        Type: AllAtOnce
+      Policies:
+        - S3ReadPolicy:
+            BucketName: nextjs-serverless-assets
+  NextjsImageLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      Description: Next.js Image Optimization Dependencies
+      ContentUri: node_modules/@sladg/imaginex-lambda/build/dependencies-layer.zip
+  NextjsCloudFront:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Origins:
+          - DomainName: nextjs-serverless-assets.s3.amazonaws.com
+            Id: myS3Origin
+            S3OriginConfig:
+              OriginAccessIdentity: origin-access-identity/cloudfront/E127EXAMPLE51Z
+        Enabled: true
+        DefaultRootObject: index.html
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+            - OPTIONS
+          TargetOriginId: myS3Origin
+          ForwardedValues:
+            QueryString: false
+            Cookies:
+              Forward: none
+          ViewerProtocolPolicy: https-only
+        PriceClass: PriceClass_All
+        ViewerCertificate:
+          CloudFrontDefaultCertificate: true
